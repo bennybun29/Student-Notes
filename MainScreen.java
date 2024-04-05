@@ -13,6 +13,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -26,14 +27,19 @@ public class MainScreen extends javax.swing.JFrame {
     
     public MainScreen() {
         initComponents();
-        this.setTitle("School Notes");
+        this.setTitle("Student Notes");
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
+        this.setLocationRelativeTo(null);
+        
+        JOptionPane.showMessageDialog(null, "<html><body><p style='width: 200px;'><b>SINGLE CLICK</b> to select a subject to delete.<br><b>DOUBLE CLICK</b> to view.</p></body></html>", "Instructions", JOptionPane.INFORMATION_MESSAGE);
+
+                
         searchBar.setForeground(Color.GRAY);
         searchBar.setText("Search Subjects...");
         searchBar.addFocusListener(new FocusListener() {
-            
+
         @Override
         public void focusGained(FocusEvent e) {
             if (searchBar.getText().equals("Search Subjects...")) {
@@ -49,9 +55,9 @@ public class MainScreen extends javax.swing.JFrame {
                 searchBar.setText("Search Subjects...");
             }
         }
+        
     });
     
-        
     }
 
     /**
@@ -69,6 +75,7 @@ public class MainScreen extends javax.swing.JFrame {
         deleteButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         searchBar = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +83,7 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel1.setText("STUDENT NOTES");
 
         addButton.setText("Add Subject");
+        addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -87,6 +95,7 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel2.setText("SUBJECTS:");
 
         deleteButton.setText("Delete Subject");
+        deleteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -97,11 +106,11 @@ public class MainScreen extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 209, Short.MAX_VALUE)
+            .addGap(0, 221, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 29, Short.MAX_VALUE)
+            .addGap(0, 41, Short.MAX_VALUE)
         );
 
         searchBar.setText("Search Subjects...");
@@ -110,6 +119,17 @@ public class MainScreen extends javax.swing.JFrame {
                 searchBarActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 21, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,19 +144,23 @@ public class MainScreen extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(122, 122, 122)
-                                .addComponent(jLabel2)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(12, Short.MAX_VALUE)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,13 +174,15 @@ public class MainScreen extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(363, 363, 363))
+                .addGap(151, 151, 151)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(191, 191, 191))
         );
 
         pack();
@@ -171,11 +197,48 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here:
+            if (!subjectList.isEmpty()) {
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this subject?", "Delete Subject", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                subjectList.remove(selectedSubject);
+                selectedSubject = ""; // Clear the selected subject
+                updateSubjectList();
+            }
+            } else {
+                JOptionPane.showMessageDialog(null, "No subjects to delete.", "Delete Subject", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-         // TODO add your handling code here:
+             String searchText = searchBar.getText().toLowerCase(); // Convert the search text to lowercase for case-insensitive search
+    
+    // Filter the subject list based on the search text
+    List<String> filteredList = subjectList.stream()
+            .filter(subject -> subject.toLowerCase().contains(searchText))
+            .collect(Collectors.toList());
+    
+    // Update the panel to display the filtered list of subjects
+    updateSubjectList(filteredList);
+}
+
+private void updateSubjectList(List<String> subjects) {
+    jPanel1.removeAll();
+    jPanel1.setLayout(new GridLayout(subjects.size(), 1));
+    for (String subject : subjects) {
+        JButton subjectButton = new JButton(subject);
+        subjectButton.setPreferredSize(new Dimension(209, 30)); // Set preferred width and height
+        subjectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Implement action when subject button is clicked
+                selectedSubject = subject; // Store the selected subject
+                JOptionPane.showMessageDialog(null, "You chose: " + subject);
+            }
+        });
+        jPanel1.add(subjectButton);
+    }
+    jPanel1.revalidate();
+    jPanel1.repaint();
     }//GEN-LAST:event_searchBarActionPerformed
     private void updateSubjectList() {
         jPanel1.removeAll();
@@ -238,6 +301,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField searchBar;
     // End of variables declaration//GEN-END:variables
 }
