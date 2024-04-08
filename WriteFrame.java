@@ -4,6 +4,8 @@
  */
 package com.mycompany.schoolnotes2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -51,6 +53,11 @@ public class WriteFrame extends javax.swing.JFrame {
         SaveButton.setText("Save");
 
         addImgButton.setText("Add Image");
+        addImgButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addImgButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,10 +104,18 @@ public class WriteFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-            dispose(); // Close the IntroFrame
-            MainScreen main = new MainScreen();
-            main.show();// Open the MainScreen
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave? Unsaved notes might be gone", "Go back?", JOptionPane.YES_NO_OPTION);
+            
+            if (choice == JOptionPane.YES_OPTION){
+                dispose(); // Close the IntroFrame
+                MainScreen main = new MainScreen();
+                main.show();// Open the MainScreen
+            } else JOptionPane.showMessageDialog(null, "Gago ka ba?", "Geh Lods", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void addImgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImgButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addImgButtonActionPerformed
 
     /**
      * @param args the command line arguments
