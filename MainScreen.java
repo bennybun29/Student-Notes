@@ -11,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -33,7 +36,7 @@ public class MainScreen extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         
-        JOptionPane.showMessageDialog(null, "<html><body><p style='width: 200px;'><b>SINGLE CLICK</b> to select a subject to delete.<br><b>DOUBLE CLICK</b> to view.</p></body></html>", "Instructions", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "<html><body><p style='width: 200px;'><b>CLICK</b> to view and edit.<br><b>PRESS</b> to select a subject to delete.</p></body></html>", "Instructions", JOptionPane.INFORMATION_MESSAGE);
 
                 
         searchBar.setForeground(Color.GRAY);
@@ -198,27 +201,27 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
             if (!subjectList.isEmpty()) {
-            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this subject?", "Delete Subject", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                subjectList.remove(selectedSubject);
-                selectedSubject = ""; // Clear the selected subject
-                updateSubjectList();
-            }
+                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this subject?", "Delete Subject", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    subjectList.remove(selectedSubject);
+                    selectedSubject = ""; // Clear the selected subject
+                    updateSubjectList();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No subjects to delete.", "Delete Subject", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-             String searchText = searchBar.getText().toLowerCase(); // Convert the search text to lowercase for case-insensitive search
+            String searchText = searchBar.getText().toLowerCase(); // Convert the search text to lowercase for case-insensitive search
     
-    // Filter the subject list based on the search text
-    List<String> filteredList = subjectList.stream()
-            .filter(subject -> subject.toLowerCase().contains(searchText))
-            .collect(Collectors.toList());
-    
-    // Update the panel to display the filtered list of subjects
-    updateSubjectList(filteredList);
+        // Filter the subject list based on the search text
+        List<String> filteredList = subjectList.stream()
+                .filter(subject -> subject.toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
+
+        // Update the panel to display the filtered list of subjects
+        updateSubjectList(filteredList);
 }
 
 private void updateSubjectList(List<String> subjects) {
@@ -227,12 +230,12 @@ private void updateSubjectList(List<String> subjects) {
     for (String subject : subjects) {
         JButton subjectButton = new JButton(subject);
         subjectButton.setPreferredSize(new Dimension(209, 30)); // Set preferred width and height
-        subjectButton.addActionListener(new ActionListener() {
+        subjectButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // Implement action when subject button is clicked
-                selectedSubject = subject; // Store the selected subject
-                JOptionPane.showMessageDialog(null, "You chose: " + subject);
+            public void mousePressed(MouseEvent e) {
+                // Open a new frame when the button is pressed
+                WriteFrame newFrame = new WriteFrame();
+                newFrame.setVisible(true);
             }
         });
         jPanel1.add(subjectButton);
@@ -241,23 +244,54 @@ private void updateSubjectList(List<String> subjects) {
     jPanel1.repaint();
     }//GEN-LAST:event_searchBarActionPerformed
     private void updateSubjectList() {
-        jPanel1.removeAll();
-        jPanel1.setLayout(new GridLayout(subjectList.size(), 1));
-        for (String subject : subjectList) {
-            JButton subjectButton = new JButton(subject);
-            subjectButton.setPreferredSize(new Dimension(209, 30)); // Set preferred width and height
-            subjectButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Implement action when subject button is clicked
-                    selectedSubject = subject; // Store the selected subject
-                    JOptionPane.showMessageDialog(null, "You chose: " + subject);
+    jPanel1.removeAll();
+    jPanel1.setLayout(new GridLayout(subjectList.size(), 1));
+    for (String subject : subjectList) {
+        JButton subjectButton = new JButton(subject);
+        subjectButton.setPreferredSize(new Dimension(209, 30)); // Set preferred width and height
+        subjectButton.addMouseListener(new MouseAdapter() {
+            private Timer timer;
+            private boolean isPressed = false;
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Implement action when subject button is clicked
+                WriteFrame newFrame = new WriteFrame();
+                newFrame.setLocationRelativeTo(null);
+                newFrame.setVisible(true);
+                dispose();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                timer = new Timer(2000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (isPressed) {
+                            selectedSubject = subject; // Store the selected subject
+                            JOptionPane.showMessageDialog(null, "You chose: " + subject);
+                        }
+                        timer.stop();
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+                isPressed = true;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (timer != null) {
+                    timer.stop();
                 }
-            });
-            jPanel1.add(subjectButton);
-        }
-        jPanel1.revalidate();
-        jPanel1.repaint();
+                isPressed = false;
+            }
+        });
+
+        jPanel1.add(subjectButton);
+    }
+    jPanel1.revalidate();
+    jPanel1.repaint();
     }
     /**
     /**
