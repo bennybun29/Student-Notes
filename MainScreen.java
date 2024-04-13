@@ -25,9 +25,18 @@ import javax.swing.Timer;
  * @author user
  */
 public class MainScreen extends javax.swing.JFrame {
+    
+    private static MainScreen instance = null;
     private List<String> subjectList = new ArrayList<>();
     private String selectedSubject = "";
     
+    public static MainScreen getInstance() {
+        if (instance == null) {
+            instance = new MainScreen();
+        }
+        return instance;
+    }
+        
     public MainScreen() {
         initComponents();
         this.setTitle("Student Notes");
@@ -62,6 +71,7 @@ public class MainScreen extends javax.swing.JFrame {
     });
     
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,7 +92,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Perpetua Titling MT", 1, 19)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Perpetua Titling MT", 1, 17)); // NOI18N
         jLabel1.setText("STUDENT NOTES");
 
         addButton.setText("Add Subject");
@@ -109,7 +119,7 @@ public class MainScreen extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 221, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,49 +151,46 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addContainerGap(14, Short.MAX_VALUE)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(107, 107, 107))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(jLabel2)))
+                .addGap(31, 31, 31)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(151, 151, 151)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(191, 191, 191))
         );
@@ -213,7 +220,7 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-            String searchText = searchBar.getText().toLowerCase(); // Convert the search text to lowercase for case-insensitive search
+        String searchText = searchBar.getText().toLowerCase(); // Convert the search text to lowercase for case-insensitive search
     
         // Filter the subject list based on the search text
         List<String> filteredList = subjectList.stream()
@@ -224,74 +231,110 @@ public class MainScreen extends javax.swing.JFrame {
         updateSubjectList(filteredList);
 }
 
-private void updateSubjectList(List<String> subjects) {
-    jPanel1.removeAll();
-    jPanel1.setLayout(new GridLayout(subjects.size(), 1));
-    for (String subject : subjects) {
-        JButton subjectButton = new JButton(subject);
-        subjectButton.setPreferredSize(new Dimension(209, 30)); // Set preferred width and height
-        subjectButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Open a new frame when the button is pressed
-                WriteFrame newFrame = new WriteFrame();
-                newFrame.setVisible(true);
-            }
-        });
-        jPanel1.add(subjectButton);
-    }
-    jPanel1.revalidate();
-    jPanel1.repaint();
-    }//GEN-LAST:event_searchBarActionPerformed
-    private void updateSubjectList() {
-    jPanel1.removeAll();
-    jPanel1.setLayout(new GridLayout(subjectList.size(), 1));
-    for (String subject : subjectList) {
-        JButton subjectButton = new JButton(subject);
-        subjectButton.setPreferredSize(new Dimension(209, 30)); // Set preferred width and height
-        subjectButton.addMouseListener(new MouseAdapter() {
-            private Timer timer;
-            private boolean isPressed = false;
+    private void updateSubjectList(List<String> subjects) {
+        jPanel1.removeAll();
+        jPanel1.setLayout(new GridLayout(subjects.size(), 1));
+        for (String subject : subjects) {
+            JButton subjectButton = new JButton(subject);
+            subjectButton.setPreferredSize(new Dimension(256, 38)); // Set preferred width and height
+            subjectButton.addMouseListener(new MouseAdapter() {
+                private Timer timer;
+                private boolean isPressed = false;
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Implement action when subject button is clicked
-                WriteFrame newFrame = new WriteFrame();
-                newFrame.setLocationRelativeTo(null);
-                newFrame.setVisible(true);
-                dispose();
-            }
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // Implement action when subject button is clicked
+                    selectedSubject = subject;
+                    WriteFrame newFrame = new WriteFrame();
+                    newFrame.setLocationRelativeTo(null);
+                    newFrame.setVisible(true);
+                    newFrame.subjectName.setText(selectedSubject);
+                    dispose();
+                }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                timer = new Timer(2000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isPressed) {
-                            selectedSubject = subject; // Store the selected subject
-                            JOptionPane.showMessageDialog(null, "You chose: " + subject);
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                            if (isPressed) {
+                                selectedSubject = subject; // Store the selected subject
+                                JOptionPane.showMessageDialog(null, "You chose: " + subject);
+                            }
+                            timer.stop();
                         }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                    isPressed = true;
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    if (timer != null) {
                         timer.stop();
                     }
-                });
-                timer.setRepeats(false);
-                timer.start();
-                isPressed = true;
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (timer != null) {
-                    timer.stop();
+                    isPressed = false;
                 }
-                isPressed = false;
-            }
-        });
+            });
 
-        jPanel1.add(subjectButton);
-    }
-    jPanel1.revalidate();
-    jPanel1.repaint();
+            jPanel1.add(subjectButton);
+        }
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }//GEN-LAST:event_searchBarActionPerformed
+    
+    private void updateSubjectList() {
+        jPanel1.removeAll();
+        jPanel1.setLayout(new GridLayout(subjectList.size(), 1));
+        for (String subject : subjectList) {
+            JButton subjectButton = new JButton(subject);
+            subjectButton.setPreferredSize(new Dimension(256, 38));
+            subjectButton.addMouseListener(new MouseAdapter() {
+                private Timer timer;
+                private boolean isPressed = false;
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // Implement action when subject button is clicked
+                    selectedSubject = subject;
+                    WriteFrame newFrame = new WriteFrame();
+                    newFrame.setLocationRelativeTo(null);
+                    newFrame.setVisible(true);
+                    newFrame.subjectName.setText(selectedSubject);
+                    dispose();
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                            if (isPressed) {
+                                selectedSubject = subject; // Store the selected subject
+                                JOptionPane.showMessageDialog(null, "You chose: " + subject);
+                            }
+                            timer.stop();
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                    isPressed = true;
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    if (timer != null) {
+                        timer.stop();
+                    }
+                    isPressed = false;
+                }
+            });
+
+            jPanel1.add(subjectButton);
+        }
+        jPanel1.revalidate();
+        jPanel1.repaint();
     }
     /**
     /**
@@ -324,7 +367,7 @@ private void updateSubjectList(List<String> subjects) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainScreen().setVisible(true);
+                new MainScreen().setVisible(true);     
             }
         });
     }

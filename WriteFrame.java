@@ -4,7 +4,9 @@
  */
 package com.mycompany.schoolnotes2;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -19,6 +21,7 @@ public class WriteFrame extends javax.swing.JFrame {
         initComponents();
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +31,7 @@ public class WriteFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        subjectName = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -37,7 +40,8 @@ public class WriteFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("SUBJECT NAME");
+        subjectName.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 18)); // NOI18N
+        subjectName.setText("SUBJECT NAME");
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +55,11 @@ public class WriteFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         SaveButton.setText("Save");
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveButtonActionPerformed(evt);
+            }
+        });
 
         addImgButton.setText("Add Image");
         addImgButton.addActionListener(new java.awt.event.ActionListener() {
@@ -78,24 +87,24 @@ public class WriteFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(390, 390, 390))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(SaveButton)
-                        .addGap(387, 387, 387))))
+                        .addGap(387, 387, 387))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(subjectName)
+                        .addGap(374, 374, 374))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGap(12, 12, 12)
+                .addComponent(subjectName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addImgButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(SaveButton)
                 .addContainerGap())
         );
@@ -104,18 +113,32 @@ public class WriteFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave? Unsaved notes might be gone", "Go back?", JOptionPane.YES_NO_OPTION);
-            
-            if (choice == JOptionPane.YES_OPTION){
-                dispose(); // Close the IntroFrame
-                MainScreen main = new MainScreen();
-                main.show();// Open the MainScreen
-            } else JOptionPane.showMessageDialog(null, "Gago ka ba?", "Geh Lods", JOptionPane.ERROR_MESSAGE);
+        int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave? Unsaved notes might be gone.", "Go back?", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            dispose(); // Close the WriteFrame
+            MainScreen main = MainScreen.getInstance(); // Get the existing MainScreen instance
+            main.setVisible(true); // Show the existing MainScreen
+        } else {
+            JOptionPane.showMessageDialog(null, "Make sure to save before leaving.", "Tips!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void addImgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImgButtonActionPerformed
-        // TODO add your handling code here:
+    private void addImgButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+//GEN-FIRST:event_addImgButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            java.io.File file = fileChooser.getSelectedFile();
+        }
     }//GEN-LAST:event_addImgButtonActionPerformed
+
+    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Your note has been saved.");    }//GEN-LAST:event_SaveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,8 +179,8 @@ public class WriteFrame extends javax.swing.JFrame {
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton addImgButton;
     private javax.swing.JButton backButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JLabel subjectName;
     // End of variables declaration//GEN-END:variables
 }
